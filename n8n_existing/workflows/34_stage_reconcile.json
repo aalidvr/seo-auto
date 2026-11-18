@@ -1,0 +1,206 @@
+{
+  "name": "SEO | Stage | Retry & Reconciliation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/jobs/reconcile",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2391f925-c61a-45b0-b950-2b8f936b0afb",
+      "name": "Receive job",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??{};if(!b.job_id||!b.request_id||!b.stage_id||!b.tenant_id||!b.project_id)throw Error('Missing durable job identity');return [{json:b}];"
+      },
+      "id": "104c0e25-6d06-48c7-98a3-0594b457e961",
+      "name": "Validate job envelope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/jobs/lease\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "7d086426-9850-47ec-bf2e-09e3c04757db",
+      "name": "Lease job reconcile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        710,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/stages/reconcile/execute\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "e806e6f2-9d37-4499-bd64-c42e6cc6be17",
+      "name": "Execute reconcile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        950,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/jobs/complete\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "133a0db2-fa0c-44ae-bec6-e405c8d0b8b1",
+      "name": "Commit result reconcile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1190,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "72094069-d1e2-4ef1-8e71-d358507f1a86",
+      "name": "Acknowledge reconcile",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1430,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive job": {
+      "main": [
+        [
+          {
+            "node": "Validate job envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate job envelope": {
+      "main": [
+        [
+          {
+            "node": "Lease job reconcile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lease job reconcile": {
+      "main": [
+        [
+          {
+            "node": "Execute reconcile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute reconcile": {
+      "main": [
+        [
+          {
+            "node": "Commit result reconcile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit result reconcile": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge reconcile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "ecd0aeb9-8d70-4705-aed0-77893592bce2",
+  "notes": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+}

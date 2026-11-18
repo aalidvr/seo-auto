@@ -1,0 +1,101 @@
+{
+  "version": "1.0.0",
+  "profiles": {
+    "full": {
+      "outline_candidates": [
+        "perplexity",
+        "anthropic",
+        "openai",
+        "xai",
+        "deepseek",
+        "google"
+      ],
+      "outline_stages": [
+        "O1",
+        "O2",
+        "O3",
+        "O4",
+        "O5",
+        "O6"
+      ],
+      "article_candidates": [
+        "anthropic",
+        "openai",
+        "deepseek",
+        "xai",
+        "google"
+      ],
+      "article_judges": [
+        "anthropic",
+        "google",
+        "openai"
+      ],
+      "article_stages": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6"
+      ],
+      "article_judgment_count": 15,
+      "base_model_calls": 37
+    },
+    "balanced": {
+      "outline_candidates": [
+        "anthropic",
+        "openai",
+        "google"
+      ],
+      "article_candidates": [
+        "anthropic",
+        "openai",
+        "google"
+      ],
+      "article_judges": [
+        "anthropic",
+        "openai"
+      ],
+      "note": "Requires backend policy implementation"
+    },
+    "economy": {
+      "outline_candidates": [
+        "openai"
+      ],
+      "article_candidates": [
+        "openai"
+      ],
+      "article_judges": [
+        "anthropic"
+      ],
+      "note": "Requires backend policy implementation"
+    }
+  },
+  "provider_model_ids": {
+    "openai": null,
+    "anthropic": null,
+    "google": null,
+    "xai": null,
+    "deepseek": null,
+    "perplexity": null
+  },
+  "all_content_requires_approval": true,
+  "site_configurable": [
+    "providers",
+    "model_ids",
+    "rag",
+    "roadmap",
+    "skills",
+    "budget",
+    "quality",
+    "channels",
+    "review",
+    "links",
+    "delivery"
+  ],
+  "security": {
+    "tenant_scope_required": true,
+    "project_scope_required": true,
+    "reject_untrusted_instructions": true
+  }
+}

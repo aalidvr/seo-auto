@@ -1,0 +1,126 @@
+{
+  "name": "SEO | Intake | Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/telegram/intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "90e6c965-5a2b-4bd7-80cb-72f3e2cfdc68",
+      "name": "Receive Telegram",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??$json; const id=b.request_id??b.requestId??null; return [{json:{...b,request_id:id,received_at:new Date().toISOString(),ingress:\"n8n\"}}];"
+      },
+      "id": "5d6f9d03-7581-46a2-8dbc-02aeaf033585",
+      "name": "Normalize envelope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/intake/telegram\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "8215cdec-ca70-490d-8db9-a7f94bb30f16",
+      "name": "Authenticate and accept",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "7aa2dd27-cce9-4d1e-9d6d-e1d866660c2e",
+      "name": "Return receipt",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Telegram": {
+      "main": [
+        [
+          {
+            "node": "Normalize envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize envelope": {
+      "main": [
+        [
+          {
+            "node": "Authenticate and accept",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate and accept": {
+      "main": [
+        [
+          {
+            "node": "Return receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "752be65e-84c3-47b5-8311-8784167ad730",
+  "notes": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+}

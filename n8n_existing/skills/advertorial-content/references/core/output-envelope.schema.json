@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.invalid/seo-content/output-envelope.schema.json",
+  "title": "SEO content skill output envelope",
+  "type": "object",
+  "required": ["skill", "skill_version", "request_id", "status", "language", "locale"],
+  "properties": {
+    "skill": {
+      "type": "string",
+      "enum": ["seo-blog-guide", "landing-page-content", "gzlocation", "product-page-content", "advertorial-content"]
+    },
+    "skill_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "request_id": { "type": "string", "minLength": 1 },
+    "correlation_id": { "type": "string" },
+    "status": { "type": "string", "enum": ["completed", "completed_with_flags", "needs_input", "failed"] },
+    "language": { "type": "string", "minLength": 2 },
+    "locale": { "type": "string", "minLength": 2 },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 320 },
+        "slug": { "type": "string", "pattern": "^[^\\s/]+$" },
+        "primary_keyword": { "type": "string" }
+      },
+      "required": ["title", "description"],
+      "additionalProperties": false
+    },
+    "body_html": { "type": "string", "description": "CMS-ready HTML body (or Markdown for a document skill)." },
+    "plain_text": { "type": "string", "description": "Optional plain-text version, required for advertorials." },
+    "jsonld": {
+      "type": "array",
+      "items": { "type": "object", "required": ["@context"] },
+      "description": "Parsed JSON-LD objects. They must mirror the visible page."
+    },
+    "word_count": { "type": "integer", "minimum": 0 },
+    "headings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["level", "text"],
+        "properties": { "level": { "type": "integer", "minimum": 1, "maximum": 6 }, "text": { "type": "string" } }
+      }
+    },
+    "internal_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["anchor", "url", "status"],
+        "properties": {
+          "anchor": { "type": "string" },
+          "url": { "type": "string" },
+          "section": { "type": "string" },
+          "reason": { "type": "string" },
+          "status": { "type": "string", "enum": ["live", "draft", "unverified"] }
+        }
+      }
+    },
+    "future_page_suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["suggested_topic", "reason"],
+        "properties": { "suggested_topic": { "type": "string" }, "reason": { "type": "string" }, "anchor_idea": { "type": "string" } }
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "source_name", "quote", "verified_by"],
+        "properties": {
+          "url": { "type": "string" },
+          "source_name": { "type": "string" },
+          "quote": { "type": "string" },
+          "quote_words": { "type": "integer", "maximum": 15 },
+          "verified_by": { "type": "string", "enum": ["fetched_text", "source_pack"] },
+          "retrieved_at": { "type": "string" }
+        }
+      }
+    },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "severity", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": ["NEED_CONFIRM", "UNVERIFIED_URL", "UNVERIFIED_CLAIM", "SOURCE_MISSING", "BRIEF_CORRECTED", "CONFLICT", "STALE_SOURCE", "YMYL_REVIEW", "INJECTION_SUSPECTED", "DUPLICATE_RISK", "PRIVACY", "SKILL_DEVIATION"]
+          },
+          "severity": { "type": "string", "enum": ["info", "warn", "block"] },
+          "message": { "type": "string" },
+          "location": { "type": "string" }
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "maxItems": 3,
+      "items": { "type": "string" },
+      "description": "Only when status is needs_input."
+    },
+    "verification": {
+      "type": "array",
+      "description": "Per-fact source trail for the human check (directory pages, product specs). Never published.",
+      "items": {
+        "type": "object",
+        "required": ["subject", "field", "value", "source"],
+        "properties": {
+          "subject": { "type": "string" },
+          "field": { "type": "string" },
+          "value": { "type": "string" },
+          "source": { "type": "string" },
+          "confirm": { "type": "boolean" }
+        }
+      }
+    },
+    "qa": {
+      "type": "object",
+      "properties": {
+        "tool": { "type": "string" },
+        "fails": { "type": "array", "items": { "type": "string" } },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "needs_input" } } },
+      "then": { "required": ["questions"], "properties": { "questions": { "minItems": 1 } } }
+    },
+    {
+      "if": { "properties": { "status": { "enum": ["completed", "completed_with_flags"] } } },
+      "then": { "required": ["meta", "body_html"] }
+    }
+  ]
+}

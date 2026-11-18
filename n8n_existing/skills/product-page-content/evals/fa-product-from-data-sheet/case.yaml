@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: fa-product-from-data-sheet
+expected_outcome: |
+  A Persian product page built only from the data sheet. The manufacturer's English superlatives ('best in the world', '100% guarantee of dry feet') are not copied or translated.
+   No review or aggregate rating is written. Missing facts a shopper needs (for example the size chart) are CONFIRM markers. The spec table contains only sheet attributes.
+   Product JSON-LD price matches the visible price; no gtin, mpn or aggregateRating appears. Shipping, returns and warranty use the shop's wording. QA passes.
+context:
+  scaffold_script: place-files.sh

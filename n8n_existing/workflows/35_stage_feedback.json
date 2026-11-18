@@ -1,0 +1,206 @@
+{
+  "name": "SEO | Stage | Feedback & Versioning",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/jobs/feedback",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a6b6a9b7-86b4-404a-a8fc-e9f538bd95ef",
+      "name": "Receive job",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??{};if(!b.job_id||!b.request_id||!b.stage_id||!b.tenant_id||!b.project_id)throw Error('Missing durable job identity');return [{json:b}];"
+      },
+      "id": "66f7c58c-edfd-4b8d-a857-5c2473c27244",
+      "name": "Validate job envelope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/jobs/lease\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "d1c54bec-529c-4fb1-97f1-b2e386e5e2ad",
+      "name": "Lease job feedback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        710,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/stages/feedback/execute\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "f76c04b8-7848-43c6-a236-9353bbfe0a1f",
+      "name": "Execute feedback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        950,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/jobs/complete\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "9730c7d7-366b-44b5-9062-d09401a2f9dc",
+      "name": "Commit result feedback",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1190,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "fa6669e1-0dc7-4ee0-9a5a-166a6a11ac1c",
+      "name": "Acknowledge feedback",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1430,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive job": {
+      "main": [
+        [
+          {
+            "node": "Validate job envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate job envelope": {
+      "main": [
+        [
+          {
+            "node": "Lease job feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lease job feedback": {
+      "main": [
+        [
+          {
+            "node": "Execute feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute feedback": {
+      "main": [
+        [
+          {
+            "node": "Commit result feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit result feedback": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "865d727e-f6ee-436b-ba63-9c7ea12d2436",
+  "notes": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+}

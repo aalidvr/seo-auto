@@ -1,0 +1,86 @@
+{
+  "name": "SEO | Health",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "seo/health",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2bc31c15-239f-4c6c-b741-b4e92bdcebc1",
+      "name": "Health Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{json:{ok:true,service:\"seo-n8n\",note:\"Only workflow availability; not backend health\"}}]"
+      },
+      "id": "17831158-ebf1-4f1d-a3bf-2a587b9906a0",
+      "name": "Health response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "bff48e89-462b-4341-9b97-778fe1713cd2",
+      "name": "Health Reply",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        690,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Health Webhook": {
+      "main": [
+        [
+          {
+            "node": "Health response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Health response": {
+      "main": [
+        [
+          {
+            "node": "Health Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "3421ec25-1bb7-47f8-8e25-37b000d80a74",
+  "notes": "Simple webhook health; does not imply external integrations are healthy."
+}

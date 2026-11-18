@@ -1,0 +1,126 @@
+{
+  "name": "SEO | Intake | Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/email/intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f697d122-b026-4633-87a0-30328e5e9eea",
+      "name": "Receive Email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??$json; const id=b.request_id??b.requestId??null; return [{json:{...b,request_id:id,received_at:new Date().toISOString(),ingress:\"n8n\"}}];"
+      },
+      "id": "f80e81f6-ebf5-4b64-8ff7-2ce8ac410950",
+      "name": "Normalize envelope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/intake/email\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "e2ef6de3-676a-46ec-9f95-619bed505446",
+      "name": "Authenticate and accept",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "0c8556b3-18a3-49fd-80a9-c1483abdc8dd",
+      "name": "Return receipt",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Email": {
+      "main": [
+        [
+          {
+            "node": "Normalize envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize envelope": {
+      "main": [
+        [
+          {
+            "node": "Authenticate and accept",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate and accept": {
+      "main": [
+        [
+          {
+            "node": "Return receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "2bb1f7b9-2472-433b-ba68-da9785829f45",
+  "notes": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+}

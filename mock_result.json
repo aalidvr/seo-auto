@@ -1,0 +1,467 @@
+{
+  "status": "awaiting_human_approval",
+  "profile": "full",
+  "outline": {
+    "stage": "O6_final_outline",
+    "provider": "anthropic",
+    "id": "d06e72b3bd",
+    "title": "عنوان آزمایشی",
+    "sections": [
+      {
+        "heading": "بخش نمونه",
+        "purpose": "تست مسیر"
+      }
+    ],
+    "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+    "issues": [],
+    "score": 75,
+    "decision": "review"
+  },
+  "article": {
+    "stage": "A6_final_editor",
+    "provider": "openai",
+    "id": "3f61c902d0",
+    "title": "عنوان آزمایشی",
+    "sections": [
+      {
+        "heading": "بخش نمونه",
+        "purpose": "تست مسیر"
+      }
+    ],
+    "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+    "issues": [],
+    "score": 75,
+    "decision": "review"
+  },
+  "review_matrix": {
+    "anthropic:anthropic": {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "id": "47c1d98a4c",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "anthropic:gemini": {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "id": "47c1d98a4c",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "anthropic:openai": {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "id": "47c1d98a4c",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "openai:anthropic": {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "id": "11a2274fe1",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "openai:gemini": {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "id": "11a2274fe1",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "openai:openai": {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "id": "11a2274fe1",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "deepseek:anthropic": {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "id": "535dc4f7da",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "deepseek:gemini": {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "id": "535dc4f7da",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "deepseek:openai": {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "id": "535dc4f7da",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "grok:anthropic": {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "id": "65405c9034",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "grok:gemini": {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "id": "65405c9034",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "grok:openai": {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "id": "65405c9034",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "gemini:anthropic": {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "id": "9f6771f785",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "gemini:gemini": {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "id": "9f6771f785",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    },
+    "gemini:openai": {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "id": "9f6771f785",
+      "title": "عنوان آزمایشی",
+      "sections": [
+        {
+          "heading": "بخش نمونه",
+          "purpose": "تست مسیر"
+        }
+      ],
+      "body": "محتوای آزمایشی؛ برای انتشار مناسب نیست.",
+      "issues": [],
+      "score": 75,
+      "decision": "review"
+    }
+  },
+  "trace": [
+    {
+      "stage": "O1_independent_outline",
+      "provider": "openai",
+      "sha256": "e1fa828bd2857f87842f05764aaacac2295c45aa48bb6f3bcff872f9499ce50b"
+    },
+    {
+      "stage": "O1_independent_outline",
+      "provider": "anthropic",
+      "sha256": "781d6e13ec3b07d2b32987eb420cfce02526cc56085b655bb9ccb12d6edecd1a"
+    },
+    {
+      "stage": "O1_independent_outline",
+      "provider": "gemini",
+      "sha256": "73a3f3e146775131a7cb9ad024579ec2e56d0d8c19eb9507d1221995e1c7a230"
+    },
+    {
+      "stage": "O1_independent_outline",
+      "provider": "grok",
+      "sha256": "a49f075374c014a98911eced1db7b49da4bc13d8537d5d151ff2a9de781cfecd"
+    },
+    {
+      "stage": "O1_independent_outline",
+      "provider": "deepseek",
+      "sha256": "082129718c9cfc7d8459106af3043a33cd7a768088435442ecf559e0d335ca73"
+    },
+    {
+      "stage": "O1_independent_outline",
+      "provider": "perplexity",
+      "sha256": "73f6570fc867b67e45f8584e211172eca0f9f09d78dd01a1a8e731c1ee295097"
+    },
+    {
+      "stage": "O2_synthesis",
+      "provider": "anthropic",
+      "sha256": "dc66e9101bbf8c78bcadad2600b1265ff2fd265ab978d0757da16301844a045a"
+    },
+    {
+      "stage": "O3_independent_outline_judgment",
+      "provider": "anthropic",
+      "sha256": "8b2c16e8ec34ff8d1824a20884a27d65f75684e0137c3bd52cd7d2c141190cb5"
+    },
+    {
+      "stage": "O3_independent_outline_judgment",
+      "provider": "openai",
+      "sha256": "d5794f21e027764bb62abd7bd5a0ac6cabdc05c20651d94477e3940f6962af4a"
+    },
+    {
+      "stage": "O4_resolve",
+      "provider": "anthropic",
+      "sha256": "dc11c860432c65fb774ec9a54490db0eead593f141b4516d09fee5ef35111f1d"
+    },
+    {
+      "stage": "O5_self_review",
+      "provider": "anthropic",
+      "sha256": "acf146ac511f3af12a9c88239c743fb81c15a1f491e8685d6209e3f69765008d"
+    },
+    {
+      "stage": "O6_final_outline",
+      "provider": "anthropic",
+      "sha256": "c3454df3767114eaeca22b7907619210ae4b59ac18be09b72d833d2a63c7d9e5"
+    },
+    {
+      "stage": "A1_independent_articles",
+      "provider": "anthropic",
+      "sha256": "1853e527291f91635c9123d117b303ea06f20ffbe5efc8073cdd8b457a2bd0f5"
+    },
+    {
+      "stage": "A1_independent_articles",
+      "provider": "openai",
+      "sha256": "542780b9611784cc64ad0dd3fcbc6af5a67482127300fe099c9de23297fce931"
+    },
+    {
+      "stage": "A1_independent_articles",
+      "provider": "deepseek",
+      "sha256": "68a6b4ea548f9c51aecb87cd7cf286db7b53c440f9aa69bd06c3e50a7f6cd9f6"
+    },
+    {
+      "stage": "A1_independent_articles",
+      "provider": "grok",
+      "sha256": "2d6e6ff411e752989b65324b0585c05f8aab8eec72c3cf022c7fda4252d96dea"
+    },
+    {
+      "stage": "A1_independent_articles",
+      "provider": "gemini",
+      "sha256": "4f8d25c6e2e02a857640c169a9e2b492a4704f140b0c4456092e79b218231d15"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "sha256": "e24a4727bd8f1b109fbcc84596f94710a312ab3baa7401ef12c9796c8e1468d1"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "sha256": "4982928592eff764c3485631141b682c3168c0c18d94e561fcf42029c086bf11"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "sha256": "df9ecce9134a9a402256c4e7c4b7031a83c502d1d9910ea6df36589d1ee5ddff"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "sha256": "738c3df70d5a4599924cad210a1f93eecba5f459abc49e1844e5cb6eb4cebcd8"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "sha256": "d538fa906b91c005877daad4bcc3189c9d3e9608c2722b1a38874c9f8429d100"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "sha256": "c70d7044e4046cda27682b38ccec6cc6c8357c7a3403b64de798d0bd36c8fba4"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "sha256": "f7f471f36a5b750079981c6425cb166578d5051041b1b847b26444f198e0c541"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "sha256": "9aad9f6a3211f5c2a8a633aae0fc860911a881c90731290abbca0af136c25951"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "sha256": "df79d4067f03e160bd2781179a1d029e55c3b192ccb9d09109e58cf4cb67b8e2"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "sha256": "50ac1d11755f8e5585dd1b132880fab236c893a15e1cfa9a1194438206d214c9"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "sha256": "d52aec156ccea5f7dddd8d8f1ceb09df86d8f9605c146675995a72adb7e52fc0"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "sha256": "b0056fb629a7f58e857d5fcb4792de3b6385abd9ab187ac26f2f1c09634ce23b"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "anthropic",
+      "sha256": "71dd1eda4fb9e2f99862711e67a77e562d8addcb3ca0855f0b9fa85c6ebb5216"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "gemini",
+      "sha256": "7360664f78f8d9ad865868ba67c4f339752dc4091c9ea73f0a35894f69fd6f4d"
+    },
+    {
+      "stage": "A2_article_review",
+      "provider": "openai",
+      "sha256": "e04d1818f0e4fb2972b7e092ba7ec34f3f00f69cf09d4ed6cca7bea236f5de1d"
+    },
+    {
+      "stage": "A3_independent_synthesis",
+      "provider": "anthropic",
+      "sha256": "966c9f14cff4e17b6a8eb8d19f409cf092172d8b23a7afad4a46e7a27b70862f"
+    },
+    {
+      "stage": "A3_independent_synthesis",
+      "provider": "openai",
+      "sha256": "bf787a9373a7db7f72a6f9666739f6e76abf848312b70390c9a89ca928afe1a8"
+    },
+    {
+      "stage": "A4_integrate",
+      "provider": "anthropic",
+      "sha256": "a7202fcb71894f4e5591bcb2bc726c7f32ec73f5f2cc05908ae2554fc603de3a"
+    },
+    {
+      "stage": "A5_final_critique",
+      "provider": "anthropic",
+      "sha256": "7793b3633127cc2821428f409eb325224b9b8c8b01e8b07b09f2972204410c38"
+    },
+    {
+      "stage": "A6_final_editor",
+      "provider": "openai",
+      "sha256": "ee66a326af11a97c42580aa3d5aecab17cc13ab3d34c3ceeb86059aec2949a2d"
+    }
+  ],
+  "mock": true,
+  "publish_allowed": false
+}

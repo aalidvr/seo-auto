@@ -1,0 +1,14 @@
+{
+ "name":"کفش کوهنوردی مدل آلپ","brand":"آلپ‌تک","model":"Alp-200","sku":"ALP-200",
+ "category":"کفش کوهنوردی",
+ "attributes":[{"name":"وزن هر لنگه","value":"450","unit":"گرم","source":"manufacturer"},
+  {"name":"رویه","value":"پارچه ضدآب","unit":null,"source":"label"},
+  {"name":"زیره","value":"لاستیک با آج عمیق","unit":null,"source":"label"}],
+ "price":{"amount":"2450000","currency":"IRR","display":"2,450,000 تومان","tax_note":"با احتساب مالیات"},
+ "availability":"InStock",
+ "shipping":"ارسال به سراسر کشور","returns":"مرجوعی تا ۷ روز در صورت سالم بودن کالا","warranty":"گارانتی ۶ ماهه فروشگاه",
+ "manufacturer_description":"The Alp-200 is the best hiking boot in the world with unmatched comfort and a 100% guarantee of dry feet in all conditions. Built for the toughest trails.",
+ "reviews":{"average":null,"count":null,"items":[]},
+ "persona":"کوهنوردان آخر هفته","objections":["سایز","ضدآب بودن"],
+ "internal_links":[{"anchor":"راهنمای انتخاب سایز کفش","url":"https://shop.example.ir/guide/size","status":"live"}]
+}

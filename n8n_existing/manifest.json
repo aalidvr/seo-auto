@@ -1,0 +1,233 @@
+{
+  "name": "SEO n8n integration workflows",
+  "version": "0.3.0",
+  "target": "n8n self-hosted Docker; version-specific import not verified",
+  "status": "integration skeleton, not end-to-end ready",
+  "workflows": [
+    {
+      "file": "01_ingress_api.json",
+      "name": "SEO | Intake | API + Website",
+      "nodes": 4,
+      "purpose": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+    },
+    {
+      "file": "01_ingress_telegram.json",
+      "name": "SEO | Intake | Telegram",
+      "nodes": 4,
+      "purpose": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+    },
+    {
+      "file": "01_ingress_email.json",
+      "name": "SEO | Intake | Email",
+      "nodes": 4,
+      "purpose": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+    },
+    {
+      "file": "01_ingress_whatsapp.json",
+      "name": "SEO | Intake | WhatsApp (disabled until configured)",
+      "nodes": 4,
+      "purpose": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+    },
+    {
+      "file": "10_stage_normalize.json",
+      "name": "SEO | Stage | Normalize & Validate",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "11_stage_assets.json",
+      "name": "SEO | Stage | Asset Intake & Extraction",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "12_stage_rag_ingest.json",
+      "name": "SEO | Stage | RAG Ingest",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "13_stage_duplicate.json",
+      "name": "SEO | Stage | Duplicate & Cannibalization",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "14_stage_research.json",
+      "name": "SEO | Stage | Research & Evidence",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "15_stage_brief.json",
+      "name": "SEO | Stage | SEO Brief",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "16_stage_outline_o1.json",
+      "name": "SEO | Stage | Outline O1 Six Candidates",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "17_stage_outline_o2.json",
+      "name": "SEO | Stage | Outline O2 Claude Synthesis",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "18_stage_outline_o3.json",
+      "name": "SEO | Stage | Outline O3 Dual Review",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "19_stage_outline_o4.json",
+      "name": "SEO | Stage | Outline O4 Conflict Resolution",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "20_stage_outline_o5.json",
+      "name": "SEO | Stage | Outline O5 Self Review",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "21_stage_outline_o6.json",
+      "name": "SEO | Stage | Outline O6 Final",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "22_stage_article_a1.json",
+      "name": "SEO | Stage | Article A1 Five Drafts",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "23_stage_article_a2.json",
+      "name": "SEO | Stage | Article A2 5x3 Judging",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "24_stage_article_a3.json",
+      "name": "SEO | Stage | Article A3 Dual Synthesis",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "25_stage_article_a4.json",
+      "name": "SEO | Stage | Article A4 Responsible Merge",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "26_stage_article_a5.json",
+      "name": "SEO | Stage | Article A5 Claude Final Critique",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "27_stage_article_a6.json",
+      "name": "SEO | Stage | Article A6 GPT Final Edit",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "28_stage_factcheck.json",
+      "name": "SEO | Stage | Fact Check & SEO QA",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "29_stage_links.json",
+      "name": "SEO | Stage | Internal Linking",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "30_stage_html.json",
+      "name": "SEO | Stage | HTML & JSON-LD",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "31_stage_approval.json",
+      "name": "SEO | Stage | Human Review Gate",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "32_stage_delivery.json",
+      "name": "SEO | Stage | DOCX HTML Delivery",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "33_stage_sheets.json",
+      "name": "SEO | Stage | Sheets Sync",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "34_stage_reconcile.json",
+      "name": "SEO | Stage | Retry & Reconciliation",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "35_stage_feedback.json",
+      "name": "SEO | Stage | Feedback & Versioning",
+      "nodes": 6,
+      "purpose": "Durable stage runner; API must validate lease ownership and stage output before committing. Not standalone."
+    },
+    {
+      "file": "50_control_approve.json",
+      "name": "SEO | Control | Approve or Reject",
+      "nodes": 4,
+      "purpose": "Control API enforces authenticated user/site and state transitions."
+    },
+    {
+      "file": "50_control_cancel.json",
+      "name": "SEO | Control | Cancel Request",
+      "nodes": 4,
+      "purpose": "Control API enforces authenticated user/site and state transitions."
+    },
+    {
+      "file": "50_control_status.json",
+      "name": "SEO | Control | Request Status",
+      "nodes": 4,
+      "purpose": "Control API enforces authenticated user/site and state transitions."
+    },
+    {
+      "file": "50_control_config.json",
+      "name": "SEO | Control | Settings Sync",
+      "nodes": 4,
+      "purpose": "Control API enforces authenticated user/site and state transitions."
+    },
+    {
+      "file": "50_control_resume.json",
+      "name": "SEO | Control | Conversation Resume",
+      "nodes": 4,
+      "purpose": "Control API enforces authenticated user/site and state transitions."
+    },
+    {
+      "file": "00_health.json",
+      "name": "SEO | Health",
+      "nodes": 3,
+      "purpose": "Simple webhook health; does not imply external integrations are healthy."
+    }
+  ],
+  "dependencies": [
+    "control-plane API (NOT PROVIDED)",
+    "PostgreSQL",
+    "Redis for n8n queue",
+    "S3-compatible storage",
+    "pgvector extension and retrieval service",
+    "provider API accounts",
+    "document conversion service"
+  ]
+}

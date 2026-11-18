@@ -1,0 +1,126 @@
+{
+  "name": "SEO | Intake | WhatsApp (disabled until configured)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/whatsapp/intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0a796b50-2a5a-488e-9821-0c1a2b808762",
+      "name": "Receive WhatsApp (disabled until configured)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??$json; const id=b.request_id??b.requestId??null; return [{json:{...b,request_id:id,received_at:new Date().toISOString(),ingress:\"n8n\"}}];"
+      },
+      "id": "e11ab8b0-f1a3-4f8f-a5e5-6cf6b0f5a44a",
+      "name": "Normalize envelope",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/intake/whatsapp\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "5e891ebd-9e18-43c4-9ba4-8790891a4cab",
+      "name": "Authenticate and accept",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "e14e51a5-3a90-45c2-855e-cac4e576fb23",
+      "name": "Return receipt",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive WhatsApp (disabled until configured)": {
+      "main": [
+        [
+          {
+            "node": "Normalize envelope",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize envelope": {
+      "main": [
+        [
+          {
+            "node": "Authenticate and accept",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate and accept": {
+      "main": [
+        [
+          {
+            "node": "Return receipt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "0a5654c2-ad8c-49e0-947b-530fe005a64b",
+  "notes": "Ingress delegates channel signature, identity, ACL, dedupe and durable enqueue to control API; WhatsApp is not activated by default."
+}

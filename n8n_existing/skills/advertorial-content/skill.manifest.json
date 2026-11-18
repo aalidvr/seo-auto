@@ -1,0 +1,127 @@
+{
+  "id": "advertorial-content",
+  "version": "2.0.0",
+  "status": "pending_approval",
+  "content_type": "advertorial",
+  "title": "Advertorial (sponsored article)",
+  "language_support": [
+    "any",
+    "fa-IR (RTL profile)"
+  ],
+  "purpose": "Publisher-ready sponsored article with headline options, honest lead and body, optional client-supplied quote, link plan with rel sponsored, disclosure line and plain-text version.",
+  "entry": "SKILL.md",
+  "core_rules": [
+    "references/core/core-rules.md",
+    "references/core/persian-rtl-style.md"
+  ],
+  "references": [
+    "references/publisher-profile.md",
+    "references/templates.md"
+  ],
+  "inputs": {
+    "schema": "references/core/skill-input.schema.json",
+    "required": [
+      "brief.primary_keyword",
+      "language",
+      "locale",
+      "brand facts"
+    ],
+    "recommended": [
+      "publisher_profile",
+      "internal_links (link plan)",
+      "brief.hard_facts",
+      "quotes supplied by client",
+      "project.style_profile"
+    ]
+  },
+  "output": {
+    "schema": "references/core/output-envelope.schema.json",
+    "files": [
+      "advertorial.html",
+      "advertorial.txt"
+    ]
+  },
+  "grounding": {
+    "modes": [
+      "source_pack",
+      "none"
+    ],
+    "rule": "facts and quotes only from the client; no invented hook"
+  },
+  "qa": {
+    "script": "scripts/seo_qa.py",
+    "args": "--type advertorial --brand {brand} --max-links {n} --facts-file facts.txt"
+  },
+  "search_intent_criteria": [
+    "publisher reader finds the piece useful or newsworthy",
+    "brand is part of the story, not all of it"
+  ],
+  "cta_policy": "one soft, specific CTA; no urgency or discounts unless supplied",
+  "link_policy": "publisher limit; rel sponsored noopener; mixed anchors; at most one exact-match; no draft URLs",
+  "forbidden": [
+    "invented news, quotes, spokespeople, statistics, awards, reviews",
+    "hiding or disguising sponsorship",
+    "cloaked or hidden links",
+    "comparative attacks on named competitors",
+    "claims of guaranteed ranking or uniqueness"
+  ],
+  "human_review_triggers": [
+    "YMYL topic",
+    "publisher profile conflicts with core rules",
+    "no verifiable hook",
+    "quote or number not in facts"
+  ],
+  "limits": {
+    "max_rewrite_passes": 2,
+    "default_word_range": [
+      600,
+      900
+    ],
+    "default_link_limit": 2
+  },
+  "rubric": [
+    {
+      "id": "honesty_disclosure",
+      "weight": 20,
+      "check": "sponsored disclosure present; not posing as independent journalism; paid links marked"
+    },
+    {
+      "id": "factual_integrity",
+      "weight": 25,
+      "check": "all facts, numbers and quotes traceable to the client facts"
+    },
+    {
+      "id": "reader_value",
+      "weight": 15,
+      "check": "useful or newsworthy for the publisher's reader; value before brand"
+    },
+    {
+      "id": "headline_lead_craft",
+      "weight": 10,
+      "check": "three honest headlines within 70 chars; lead answers who, what, why"
+    },
+    {
+      "id": "link_plan_quality",
+      "weight": 10,
+      "check": "within limit, mixed anchors, natural placement, rel sponsored"
+    },
+    {
+      "id": "publisher_fit",
+      "weight": 10,
+      "check": "tone, length, markup match the profile"
+    },
+    {
+      "id": "language_style",
+      "weight": 10,
+      "check": "native copy; Persian rules; glossary"
+    }
+  ],
+  "changelog": [
+    {
+      "version": "2.0.0",
+      "changes": [
+        "New skill: honesty frame, hook-first angle, link plan with rel sponsored, client-only quotes, plain-text output"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/seo-request-v1.json",
+  "title": "SEO request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "tenant_id",
+    "user_id",
+    "project_id",
+    "site_id",
+    "channel",
+    "content_type",
+    "input_mode",
+    "primary_keyword",
+    "secondary_keywords",
+    "language",
+    "locale",
+    "target_location",
+    "audience",
+    "search_intent",
+    "user_instructions",
+    "source_assets",
+    "prompt_version",
+    "skill_version",
+    "budget_profile",
+    "status",
+    "correlation_id"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "tenant_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "user_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "project_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "site_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "correlation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "api",
+        "telegram",
+        "email",
+        "whatsapp"
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "blog",
+        "landing",
+        "local_seo",
+        "product",
+        "advertorial"
+      ]
+    },
+    "input_mode": {
+      "type": "string",
+      "enum": [
+        "keyword",
+        "text",
+        "youtube",
+        "audio",
+        "video",
+        "document",
+        "mixed"
+      ]
+    },
+    "budget_profile": {
+      "type": "string",
+      "enum": [
+        "economy",
+        "balanced",
+        "full_consensus"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "received",
+        "awaiting_input",
+        "validated",
+        "queued",
+        "processing",
+        "awaiting_human_review",
+        "approved",
+        "delivered",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "primary_keyword": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "locale": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "string"
+    },
+    "search_intent": {
+      "type": "string"
+    },
+    "user_instructions": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "skill_version": {
+      "type": "string"
+    },
+    "secondary_keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 30
+    },
+    "source_assets": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "target_location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

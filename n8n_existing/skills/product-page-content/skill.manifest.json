@@ -1,0 +1,128 @@
+{
+  "id": "product-page-content",
+  "version": "2.0.0",
+  "status": "pending_approval",
+  "content_type": "product",
+  "title": "Product page content (PDP)",
+  "language_support": [
+    "any",
+    "fa-IR (RTL profile)"
+  ],
+  "purpose": "Catalogue product page from a structured data sheet: short description, benefits, spec table, fit-check, policies, FAQ, meta and Product/Offer schema without invented facts.",
+  "entry": "SKILL.md",
+  "core_rules": [
+    "references/core/core-rules.md",
+    "references/core/persian-rtl-style.md"
+  ],
+  "references": [
+    "references/product-data-sheet.md",
+    "references/templates.md"
+  ],
+  "inputs": {
+    "schema": "references/core/skill-input.schema.json",
+    "required": [
+      "product_data.name",
+      "product_data.attributes",
+      "language",
+      "locale"
+    ],
+    "recommended": [
+      "product_data.price",
+      "product_data.shipping",
+      "product_data.returns",
+      "product_data.warranty",
+      "product_data.manufacturer_description",
+      "internal_links",
+      "project.style_profile"
+    ]
+  },
+  "output": {
+    "schema": "references/core/output-envelope.schema.json",
+    "files": [
+      "product.html"
+    ]
+  },
+  "grounding": {
+    "modes": [
+      "source_pack",
+      "none",
+      "live_web"
+    ],
+    "rule": "facts only from the data sheet or verified sources"
+  },
+  "qa": {
+    "script": "scripts/seo_qa.py",
+    "args": "--type product --facts-file facts.txt --source-text manufacturer.txt"
+  },
+  "search_intent_criteria": [
+    "transactional: shopper can decide from the first screen",
+    "spec table answers comparison questions",
+    "FAQ answers pre-purchase objections"
+  ],
+  "cta_policy": "buy action belongs to the theme widget; copy supports it without urgency or invented discounts",
+  "link_policy": "only supplied internal links; draft pages not linked; no competitor links",
+  "forbidden": [
+    "invented specs, prices, stock, reviews, ratings, certifications, badges",
+    "copied manufacturer text",
+    "unproven superlatives",
+    "health claims beyond the label"
+  ],
+  "human_review_triggers": [
+    "health, supplement, cosmetic, child safety, electrical or food category",
+    "data conflicts",
+    "missing price or availability",
+    "schema price differs from page"
+  ],
+  "limits": {
+    "max_rewrite_passes": 2,
+    "default_word_range": [
+      400,
+      900
+    ]
+  },
+  "rubric": [
+    {
+      "id": "data_fidelity",
+      "weight": 25,
+      "check": "every spec and number traceable to the data sheet; gaps marked"
+    },
+    {
+      "id": "shopper_usefulness",
+      "weight": 20,
+      "check": "answers the real purchase questions; fit-check; benefits tied to specs"
+    },
+    {
+      "id": "originality_vs_source",
+      "weight": 10,
+      "check": "manufacturer copy rewritten, no 8-word shared runs"
+    },
+    {
+      "id": "claims_compliance",
+      "weight": 15,
+      "check": "no unproven superlatives, certifications or health claims; YMYL flagged"
+    },
+    {
+      "id": "schema_consistency",
+      "weight": 15,
+      "check": "Product/Offer values visible and equal; no invented rating"
+    },
+    {
+      "id": "locale_language",
+      "weight": 10,
+      "check": "native copy, units, currency, Persian rules"
+    },
+    {
+      "id": "html_hygiene",
+      "weight": 5,
+      "check": "clean semantic HTML, alt on images, one H1"
+    }
+  ],
+  "changelog": [
+    {
+      "version": "2.0.0",
+      "changes": [
+        "New skill modelled on the landing/blog skills: data-sheet-first, no invented facts, schema mirrors page, QA with facts and source-text checks"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: fa-news-advertorial-real-quote
+expected_outcome: |
+  A Persian news-style advertorial using only facts.txt: three headline options up to 70 characters, lead of 25-60 words, 2-5 H2 sections, at most two links with rel sponsored,
+   mixed anchors and at most one exact-match keyword anchor. The only quote is the CEO quote from facts.txt, verbatim. No invented statistics, awards or customer counts.
+   A disclosure label is present, and a plain-text version is produced. QA passes with --max-links 2.
+context:
+  scaffold_script: place-files.sh

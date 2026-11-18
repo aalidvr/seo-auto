@@ -1,0 +1,126 @@
+{
+  "name": "SEO | Control | Approve or Reject",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/control/approve",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "c939c9a6-047e-4b4b-bf8c-22cd12e97be1",
+      "name": "Receive Approve or Reject",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??$json; const id=b.request_id??b.requestId??null; return [{json:{...b,request_id:id,received_at:new Date().toISOString(),ingress:\"n8n\"}}];"
+      },
+      "id": "59cc43cf-d72e-4912-aacb-df8ba201cf58",
+      "name": "Normalize control",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/control/approve\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "a1e4e91c-48b9-4c9e-8076-f4cb71d29bd3",
+      "name": "Apply Approve or Reject",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "c791786b-3a18-423f-bc58-0ee1ac8177dc",
+      "name": "Return Approve or Reject",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Approve or Reject": {
+      "main": [
+        [
+          {
+            "node": "Normalize control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize control": {
+      "main": [
+        [
+          {
+            "node": "Apply Approve or Reject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply Approve or Reject": {
+      "main": [
+        [
+          {
+            "node": "Return Approve or Reject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "1d080e7b-d2fb-41e9-ae53-2f7093749837",
+  "notes": "Control API enforces authenticated user/site and state transitions."
+}

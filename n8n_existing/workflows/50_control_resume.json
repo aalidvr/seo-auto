@@ -1,0 +1,126 @@
+{
+  "name": "SEO | Control | Conversation Resume",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "seo/control/resume",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "cbdc84b6-b090-444e-a20b-9a585819bb14",
+      "name": "Receive Conversation Resume",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body??$json; const id=b.request_id??b.requestId??null; return [{json:{...b,request_id:id,received_at:new Date().toISOString(),ingress:\"n8n\"}}];"
+      },
+      "id": "52ac30a4-8b37-4c7e-8c7f-0aa22655f6d5",
+      "name": "Normalize control",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        450,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SEO_CONTROL_API_URL + \"/v1/internal/control/resume\" }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Internal-Token",
+              "value": "={{ $env.SEO_INTERNAL_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "ef7c0668-f6c6-4a13-abe0-4ca483c142e5",
+      "name": "Apply Conversation Resume",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "bb46ae9f-ce7c-4a33-a6ff-cb5e8cad9d8b",
+      "name": "Return Conversation Resume",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        240
+      ]
+    }
+  ],
+  "connections": {
+    "Receive Conversation Resume": {
+      "main": [
+        [
+          {
+            "node": "Normalize control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize control": {
+      "main": [
+        [
+          {
+            "node": "Apply Conversation Resume",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply Conversation Resume": {
+      "main": [
+        [
+          {
+            "node": "Return Conversation Resume",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "active": false,
+  "tags": [],
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "versionId": "b91e0fa5-d457-4f82-ae50-b642e3cd8e9b",
+  "notes": "Control API enforces authenticated user/site and state transitions."
+}
