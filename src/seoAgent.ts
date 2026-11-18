@@ -106,17 +106,24 @@ export interface ModelGatewayOptions {
   mock?: boolean;
   models?: Partial<Record<Provider, string>>;
   timeoutMs?: number;
+  customCaller?: (
+    provider: Provider,
+    task: string,
+    payload: unknown
+  ) => Promise<Record<string, unknown>>;
 }
 
 export class ModelGateway {
   readonly mock: boolean;
   readonly models?: Partial<Record<Provider, string>>;
   readonly timeoutMs: number;
+  readonly customCaller?: ModelGatewayOptions['customCaller'];
 
   constructor(options: ModelGatewayOptions = {}) {
     this.mock = options.mock ?? false;
     this.models = options.models;
     this.timeoutMs = options.timeoutMs ?? 90_000;
+    this.customCaller = options.customCaller;
   }
 
   async call(
@@ -143,6 +150,10 @@ export class ModelGateway {
         score: 75,
         decision: 'review',
       };
+    }
+
+    if (this.customCaller) {
+      return this.customCaller(typedProvider, task, payload);
     }
 
     const keyName = KEY_NAMES[typedProvider];

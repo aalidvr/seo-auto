@@ -4,18 +4,28 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
-    "build": "tsc",
+    "dev": "vite build && tsx src/server.ts",
+    "build": "vite build && tsc",
     "start": "node dist/server.js",
-    "lint": "tsc --noEmit",
+    "lint": "tsc --noEmit && tsc -p tsconfig.client.json --noEmit",
     "test": "tsx --test tests/seoAgent.test.ts"
   },
   "dependencies": {
+    "@google/genai": "^3.6.0",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
     "express": "^5.3.0",
+    "lucide-react": "^1.75.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.5",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
   },
   "devDependencies": {}
 }

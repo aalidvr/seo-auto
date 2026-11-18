@@ -1,5 +1,6 @@
 {
   "name": "SEO Auto",
   "description": "Multi-model SEO consensus pipeline (O1-O6 & A1-A6) with human approval gate and n8n control-plane API.",
-  "requestFramePermissions": []
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
